@@ -1,0 +1,52 @@
+version: "3"
+
+services:
+    User1:
+        image: handsonsecurity/seed-ubuntu:large
+        container_name: Host-A-10.9.0.5
+        tty: true
+        networks:
+            net-10.9.0.0:
+                ipv4_address: 10.9.0.5
+        volumes:
+            - ./volumes:/volumes
+
+    User2:
+        image: handsonsecurity/seed-ubuntu:large
+        container_name: Host-B-10.9.0.6
+        tty: true
+        networks:
+            net-10.9.0.0:
+                ipv4_address: 10.9.0.6
+        volumes:
+            - ./volumes:/volumes
+        command: bash -c "/etc/init.d/openbsd-inetd start && tail -f /dev/null"
+
+    User3:
+        image: handsonsecurity/seed-ubuntu:large
+        container_name: Host-C-10.9.0.7
+        tty: true
+        networks:
+            net-10.9.0.0:
+                ipv4_address: 10.9.0.7
+        volumes:
+            - ./volumes:/volumes
+        command: bash -c "/etc/init.d/openbsd-inetd start && tail -f /dev/null"
+
+    User4:
+        image: handsonsecurity/seed-ubuntu:large
+        container_name: Host-D-10.9.0.8
+        tty: true
+        networks:
+            net-10.9.0.0:
+                ipv4_address: 10.9.0.8
+        volumes:
+            - ./volumes:/volumes
+        command: bash -c "/etc/init.d/openbsd-inetd start && tail -f /dev/null"
+
+networks:
+    net-10.9.0.0:
+        name: net-10.9.0.0
+        ipam:
+            config:
+                - subnet: 10.9.0.0/24
